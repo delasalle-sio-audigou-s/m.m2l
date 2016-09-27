@@ -74,8 +74,39 @@ class DAO
 	// ------------------------------------------------------------------------------------------------------
 	// -------------------------------------- Méthodes d'instances ------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
+	
+	// aPasseDesReservations : recherche si l'utilisateur ($name) a passé des réservations à venir
+	// crée par Sophie le 27/09/2016
+	public function aPasseDesReservations()
+	{	// préparation de la requête pour rechercher si l'utilisateur passé des réservations 
+	$txt_req1 = "Select * from mrbs_entry where id";
+	$req1 = $this->cnx->prepare($txt_req1);
+	// extraction des données
+	$req1->execute();
+	// extrait une ligne du résultat :
+	$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
+	// tant qu'une ligne est trouvée :
+	while ($uneLigne)
+	{	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
+	$digicode = $this->genererUnDigicode();
+	// préparation de la requete d'insertion
+	$txt_req2 = "insert into mrbs_entry_digicode (id, digicode) values (:id, :digicode)";
+	$req2 = $this->cnx->prepare($txt_req2);
+	// liaison de la requête et de ses paramètres
+	$req2->bindValue("id", $uneLigne->id, PDO::PARAM_INT);
+	$req2->bindValue("digicode", $digicode, PDO::PARAM_STR);
+	// exécution de la requête
+	$req2->execute();
+	// extrait la ligne suivante
+	$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
+	}
+	// libère les ressources du jeu de données
+	$req1->closeCursor();
+	return;
+	}
 
-
+	
+	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
 	// cette fonction peut dépanner en cas d'absence des triggers chargés de créer les digicodes
