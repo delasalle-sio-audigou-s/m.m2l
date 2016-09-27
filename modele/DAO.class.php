@@ -306,6 +306,23 @@ class DAO
 			return "1";
 	}
 	
+	// enregistre l'annulation de réservation 
+	// modifié par Valentin Bachelier le 27/09/2016
+	public function annulerReservation($idReservation)
+	{	// préparation de la requete
+	$txt_req = "delete from mrbs_entry where id = :idReservation";
+	$req = $this->cnx->prepare($txt_req);
+	// liaison de la requête et de ses paramètres
+	$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+	// exécution de la requete
+	$ok = $req->execute();
+	return $ok;
+	}
+	
+	// Supprimer un utilisateur
+	//modifié par Valentin Bachelier le 27/09/2016
+	// public function supprimerUtilisateur($idReservation)
+	
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

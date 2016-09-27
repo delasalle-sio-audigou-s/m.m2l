@@ -20,7 +20,7 @@ include_once ('DAO.class.php');
 $dao = new DAO();
 
 
-/*
+
 // test de la méthode annulerReservation --------------------------------------------------------
 // pour ce test, utiliser une réservation existante
 // modifié par Jim le 28/9/2015
@@ -36,7 +36,7 @@ if ($laReservation) {
 }
 else
 	echo "<p>La réservation 1 n'existe pas !</p>";
-*/
+
 
 
 /*
@@ -252,7 +252,7 @@ else
 */
 
 
-/*
+
 // test de la méthode supprimerUtilisateur --------------------------------------------------------
 // modifié par Jim le 28/9/2015
 echo "<h3>Test de supprimerUtilisateur : </h3>";
@@ -261,7 +261,7 @@ if ($ok)
  	echo "<p>Utilisateur bien supprimé !</p>";
 else
 	echo "<p>Echec lors de la suppression de l'utilisateur !</p>";
-*/
+
 
 
 /*
