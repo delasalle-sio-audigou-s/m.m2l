@@ -31,14 +31,14 @@ class Salle
 	public function getId()	{return $this->id;}
 	public function setId($unId) {$this->id = $unId;}
 	
-	public function getRoomName() {return $this->room_name;}
-	public function setRoomName($unRoomName) {$this->room_name = $unRoomName;}
+	public function getRoom_Name() {return $this->room_name;}
+	public function setRoom_Name($unRoomName) {$this->room_name = $unRoomName;}
 	
 	public function getCapacity() {return $this->capacity;}
-	public function setRoomName($unCapacity) {$this->capacity = $unCapacity;}
+	public function setCapacity($unCapacity) {$this->capacity = $unCapacity;}
 	
 	public function getAreaName() {return $this->area_name;}
-	public function setRoomName($unAreaName) {$this->area_name = $unAreaName;}
+	public function setAreaName($unAreaName) {$this->area_name = $unAreaName;}
 	
 	// ------------------------------------------------------------------------------------------------------
 	// ---------------------------------------- Méthodes d'instances ----------------------------------------
