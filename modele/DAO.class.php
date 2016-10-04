@@ -116,10 +116,30 @@ class DAO
 	}
 
 
-	
+	// estLeCreateur: teste si un utilisateur ($nomUser) est le créateur d'une réservation ($idReservation)
+	// modifié par Florentin Gremy le 04/10/2016
+	public function estLeCreateur($nomUser, $idReservation)
+	{
+		$txt_req = "Select count(mrbs_entry.id) from mrbs_entry, mrbs_users where mrbs_entry.create_by = mrbs_users.name and mrbs_entry.create_by = :nomUser and mrbs_entry.id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
+		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+		// exécution de la requete
+		$req->execute();
+		$nbReponses = $req->fetchColumn(0);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// fourniture de la réponse
+		if ($nbReponses == 0)
+			return false;
+			else
+				return true;
+	}
 
 	
 	// confirmerReservation: enregistre la confirmation de réservation dans la bdd
+	// modifié par Florentin Gremy le 04/10/2016
 	public function confirmerReservation($idReservation)
 	{
 		//préparation de la requete de recherche du statut de la réservation
@@ -128,7 +148,8 @@ class DAO
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("idReservation",$idReservation, PDO::PARAM_INT);
 		// exécution de la requete
-		$req->execute();
+		$ok = $req->execute();
+		return $ok;
 	}
 
 	

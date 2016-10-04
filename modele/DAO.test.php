@@ -43,11 +43,11 @@ else
 // pour ce test, choisir un utilisateur avec des réservations et un autre sans réservation
 // modifié par Jim le 28/9/2015
 echo "<h3>Test de aPasseDesReservations : </h3>";
-$ok = $dao->aPasseDesReservations("zenelsy");
+$ok = $dao->aPasseDesReservations("admin");
 if ($ok)
-	echo "<p>zenelsy a bien passé des réservations !<br>";
+	echo "<p>admin a bien passé des réservations !<br>";
 else
-	echo "<p>zenelsy n'a pas passé de réservations !<br>";
+	echo "<p>admin n'a pas passé de réservations !<br>";
 $ok = $dao->aPasseDesReservations("jim");
 if ($ok)
 	echo "jim a bien passé des réservations !</p>";
@@ -97,16 +97,16 @@ else
 
 // test de la méthode envoyerMdp ------------------------------------------------------------------
 // modifié par Jim le 28/9/2015
-echo "<h3>Test de envoyerMdp : </h3>";
-$dao->modifierMdpUser("jim", "passe");
-$ok = $dao->envoyerMdp("jim", "passe");
-if ($ok)
-	echo "<p>Mail bien envoyé !</p>";
-else
-	echo "<p>Echec lors de l'envoi du mail !</p>";
+// echo "<h3>Test de envoyerMdp : </h3>";
+// $dao->modifierMdpUser("jim", "passe");
+// $ok = $dao->envoyerMdp("jim", "passe");
+// if ($ok)
+// 	echo "<p>Mail bien envoyé !</p>";
+// else
+// 	echo "<p>Echec lors de l'envoi du mail !</p>";
 
 
-/*
+
 // test de la méthode estLeCreateur ---------------------------------------------------------------
 // modifié par Jim le 25/9/2015
 echo "<h3>Test de estLeCreateur : </h3>";
@@ -114,7 +114,7 @@ if ($dao->estLeCreateur("admin", "11")) $estLeCreateur = "oui"; else $estLeCreat
 echo "<p>'admin' a créé la réservation 11 : <b>" . $estLeCreateur . "</b><br>";
 if ($dao->estLeCreateur("zenelsy", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
 echo "'zenelsy' a créé la réservation 11 : <b>" . $estLeCreateur . "</b></p>";
-*/
+
 
 
 /*
