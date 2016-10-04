@@ -39,8 +39,6 @@ else
 	echo "<p>La réservation 1 n'existe pas !</p>";*/
 
 
-
-
 // test de la méthode aPasseDesReservations -------------------------------------------------------
 // pour ce test, choisir un utilisateur avec des réservations et un autre sans réservation
 // modifié par Jim le 28/9/2015
@@ -197,7 +195,7 @@ $niveauUtilisateur = $dao->getNiveauUtilisateur('guesdonm', 'passe');
 echo "NiveauUtilisateur de ('guesdonm', 'passe') : <b>" . $niveauUtilisateur . "</b></p>";
 
 
-/*
+
 // test de la méthode getReservation --------------------------------------------------------------
 // modifié par Jim le 25/9/2015
 echo "<h3>Test de getReservation : </h3>";
@@ -211,7 +209,6 @@ if ($laReservation)
 	echo "<p>La réservation 12 existe : <br>" . $laReservation->toString() . "</p>";
 else
 	echo "<p>La réservation 12 n'existe pas !</p>";	
-*/
 
 
 /*
