@@ -106,7 +106,7 @@ else
 	echo "<p>Echec lors de l'envoi du mail !</p>";
 
 
-/*
+
 // test de la méthode estLeCreateur ---------------------------------------------------------------
 // modifié par Jim le 25/9/2015
 echo "<h3>Test de estLeCreateur : </h3>";
@@ -114,7 +114,7 @@ if ($dao->estLeCreateur("admin", "11")) $estLeCreateur = "oui"; else $estLeCreat
 echo "<p>'admin' a créé la réservation 11 : <b>" . $estLeCreateur . "</b><br>";
 if ($dao->estLeCreateur("zenelsy", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
 echo "'zenelsy' a créé la réservation 11 : <b>" . $estLeCreateur . "</b></p>";
-*/
+
 
 
 /*
