@@ -79,7 +79,7 @@ class DAO
 	// crée par Sophie le 27/09/2016
 	public function aPasseDesReservations($nomUser)
 	{	// préparation de la requête pour rechercher si l'utilisateur passé des réservations
-	$txt_req = "Select create_by from mrbs_entry where create_by = :nomUser";
+	$txt_req = "Select count(*) from mrbs_entry where create_by = :nomUser";
 	$req = $this->cnx->prepare($txt_req);
 	// liaison de la requête et de ses paramètres
 	$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
@@ -94,7 +94,11 @@ class DAO
 		return false;
 		else
 			return true;
+
 	}
+
+	
+
 
 	
 	// enregistre l'annulation de réservation
@@ -108,7 +112,26 @@ class DAO
 		// exécution de la requete
 		$ok = $req->execute();
 		return $ok;
+
 	}
+
+
+	
+
+	
+	// confirmerReservation: enregistre la confirmation de réservation dans la bdd
+	public function confirmerReservation($idReservation)
+	{
+		//préparation de la requete de recherche du statut de la réservation
+		$txt_req = "UPDATE mrbs_entry SET Status ='0' WHERE id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("idReservation",$idReservation, PDO::PARAM_INT);
+		// exécution de la requete
+		$req->execute();
+		return $ok;
+	}
+
 	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
@@ -194,12 +217,12 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-	/*
-	// envoye d'un mot de passe
+/*
+	// envoyer d'un mot de passe
 	// crée par Sophie le 04/10/2016
 	public function envoyerMdp($unMDP)
 	{	// préparation de la requete
-		$txt_req = "insert into mrbs_users (level, name, password, email) values (:level, :name, :password, :email)";
+		$txt_req = "SELECT password FROM mrbs_users";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("level", utf8_decode($unUtilisateur->getLevel()), PDO::PARAM_STR);
