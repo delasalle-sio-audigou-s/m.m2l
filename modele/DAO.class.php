@@ -95,7 +95,7 @@ class DAO
 		else
 			return true;
 	}
-<<<<<<< HEAD
+
 	
 	// enregistre l'annulation de réservation
 	// modifié par Valentin Bachelier le 27/09/2016
@@ -109,21 +109,19 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/delasalle-sio-audigou-s/m.m2l.git
+
 	
 	// confirmerReservation: enregistre la confirmation de réservation dans la bdd
-	public function confirmerReservation($uneReservation)
+	public function confirmerReservation($idReservation)
 	{
 		//préparation de la requete de recherche du statut de la réservation
-		$txt_req = "Insert into mrbs_entry (Status) values ('0') where id = :identifiant";
+		$txt_req = "UPDATE mrbs_entry SET Status ='0' WHERE id = :idReservation";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("identifiant", utf8_decode($uneReservation->getId()), PDO::PARAM_STR);
+		$req->bindValue("idReservation",$idReservation, PDO::PARAM_INT);
 		// exécution de la requete
 		$req->execute();
-		// libère les ressources du jeu de données
-		$req->closeCursor();
+		return $ok;
 	}
 	
 
