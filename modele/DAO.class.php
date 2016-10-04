@@ -75,26 +75,27 @@ class DAO
 	// -------------------------------------- Méthodes d'instances ------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	// aPasseDesReservations : recherche si l'utilisateur ($name) a passé des réservations à venir
+	/// aPasseDesReservations : recherche si l'utilisateur ($name) a passé des réservations à venir
 	// crée par Sophie le 27/09/2016
-	public function aPasseDesReservations()
-	{	// préparation de la requête pour rechercher si l'utilisateur passé des réservations 
-		$txt_req = "Select create_by from mrbs_entry where create_by = :nomUser";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
-		// exécution de la requete
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return false;
+	public function aPasseDesReservations($nomUser)
+	{	// préparation de la requête pour rechercher si l'utilisateur passé des réservations
+	$txt_req = "Select create_by from mrbs_entry where create_by = :nomUser";
+	$req = $this->cnx->prepare($txt_req);
+	// liaison de la requête et de ses paramètres
+	$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
+	// exécution de la requete
+	$req->execute();
+	$nbReponses = $req->fetchColumn(0);
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	
+	// fourniture de la réponse
+	if ($nbReponses == 0)
+		return false;
 		else
 			return true;
 	}
+<<<<<<< HEAD
 	
 	// enregistre l'annulation de réservation
 	// modifié par Valentin Bachelier le 27/09/2016
@@ -108,6 +109,8 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/delasalle-sio-audigou-s/m.m2l.git
 	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
@@ -193,6 +196,23 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
+	/*
+	// envoye d'un mot de passe
+	// crée par Sophie le 04/10/2016
+	public function envoyerMdp($unMDP)
+	{	// préparation de la requete
+		$txt_req = "insert into mrbs_users (level, name, password, email) values (:level, :name, :password, :email)";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("level", utf8_decode($unUtilisateur->getLevel()), PDO::PARAM_STR);
+		$req->bindValue("name", utf8_decode($unUtilisateur->getName()), PDO::PARAM_STR);
+		$req->bindValue("password", utf8_decode(md5($unUtilisateur->getPassword())), PDO::PARAM_STR);
+		$req->bindValue("email", utf8_decode($unUtilisateur->getEmail()), PDO::PARAM_STR);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
+	*/
 
 	// fournit true si l'utilisateur ($nomUser) existe, false sinon
 	// modifié par Jim le 5/5/2015
