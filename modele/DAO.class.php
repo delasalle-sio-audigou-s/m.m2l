@@ -120,7 +120,7 @@ class DAO
 	// modifié par Florentin Gremy le 04/10/2016
 	public function estLeCreateur($nomUser, $idReservation)
 	{
-		$txt_req = "Select count(mrbs_entry.id) from mrbs_entry, mrbs_users where mrbs_entry.create_by = mrbs_users.name and mrbs_entry.create_by = :$nomUser and mrbs_entry.id = :$idReservation";
+		$txt_req = "Select count(mrbs_entry.id) from mrbs_entry, mrbs_users where mrbs_entry.create_by = mrbs_users.name and mrbs_entry.create_by = :nomUser and mrbs_entry.id = :idReservation";
 		$req = $this->cnx->prepare($txt_req);
 		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
 		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
