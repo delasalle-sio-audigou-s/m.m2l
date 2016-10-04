@@ -220,17 +220,13 @@ class DAO
 	// envoyer d'un mot de passe
 	// crée par Sophie le 04/10/2016
 	public function envoyerMdp($nom, $nouveauMdp)
-	{	// préparation de la requete
-		$txt_req = "SELECT name, password FROM mrbs_users";
+	{	//préparation de la requete de recherche du statut de la réservation
+		$txt_req = "UPDATE mrbs_user SET password='.$nouveauMdp.' WHERE name = :name";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("level", utf8_decode($unUtilisateur->getLevel()), PDO::PARAM_STR);
-		$req->bindValue("name", utf8_decode($unUtilisateur->getName()), PDO::PARAM_STR);
-		$req->bindValue("password", utf8_decode(md5($unUtilisateur->getPassword())), PDO::PARAM_STR);
-		$req->bindValue("email", utf8_decode($unUtilisateur->getEmail()), PDO::PARAM_STR);
+		$req->bindValue("name",$nom, PDO::PARAM_INT);
 		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
+		$req->execute();
 	}
 	
 
