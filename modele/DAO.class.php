@@ -341,13 +341,13 @@ class DAO
 	// modifié par Valentin Bachelier le 27/09/2016
 	public function annulerReservation($idReservation)
 	{	// préparation de la requete
-	$txt_req = "delete from mrbs_entry where id = :idReservation";
-	$req = $this->cnx->prepare($txt_req);
-	// liaison de la requête et de ses paramètres
-	$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
-	// exécution de la requete
-	$ok = $req->execute();
-	return $ok;
+		$txt_req = "delete from mrbs_entry where id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
 	}
 	
 	// Supprimer un utilisateur
