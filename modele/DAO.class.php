@@ -95,7 +95,6 @@ class DAO
 		else
 			return true;
 	}
-<<<<<<< HEAD
 	
 	// enregistre l'annulation de réservation
 	// modifié par Valentin Bachelier le 27/09/2016
@@ -109,8 +108,6 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/delasalle-sio-audigou-s/m.m2l.git
 	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
