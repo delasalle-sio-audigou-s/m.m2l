@@ -96,8 +96,18 @@ class DAO
 			return true;
 	}
 	
-
-	
+	// enregistre l'annulation de réservation
+	// modifié par Valentin Bachelier le 27/09/2016
+	public function annulerReservation($idReservation)
+	{	// préparation de la requete
+		$txt_req = "delete from mrbs_entry where id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
@@ -204,6 +214,19 @@ class DAO
 		else
 			return true;
 	}
+	
+	// supprime l'utilisateur dans la bdd
+	// modifié par Valentin Bachelier
+	public function supprimerUtilisateur($name)
+	{	// préparation de la requete
+		$txt_req = "delete from mrbs_users where name = :name" ;
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("name", utf8_decode($name), PDO::PARAM_STR);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 
 	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
 	// modifié par Jim le 5/5/2015
@@ -268,6 +291,43 @@ class DAO
 		// fourniture de la collection
 		return $lesReservations;
 	}
+	
+	// fournit un objet Reservation à partir de son identifiant
+	// fournit la valeur null si l'identifiant n'existe pas
+	// modifié par Valentin Bachelier 04/10/2016
+	public function getReservation($idReservation)
+	{	// préparation de la requete de recherche
+		$txt_req = "Select mrbs_entry.id, timestamp, start_time, end_time, room_name, status, digicode ";
+		$txt_req = $txt_req . " from mrbs_entry, mrbs_entry_digicode, mrbs_room ";
+		$txt_req = $txt_req . " where mrbs_entry.room_id = mrbs_room.id ";
+		$txt_req = $txt_req . " and mrbs_entry.id = mrbs_entry_digicode.id";
+		$txt_req = $txt_req . " and mrbs_entry.id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+	
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+			else
+			{	// création d'un objet Reservation
+				$unId = utf8_encode($uneLigne->id);
+				$unTimeStamp = utf8_encode($uneLigne->timestamp);
+				$unStartTime = utf8_encode($uneLigne->start_time);
+				$unEndTime = utf8_encode($uneLigne->end_time);
+				$unRoomName = utf8_encode($uneLigne->room_name);
+				$unStatus = utf8_encode($uneLigne->status);
+				$unDigicode = utf8_encode($uneLigne->digicode);
+				
+				$uneReservation = new Reservation($unId, $unTimeStamp, $unStartTime, $unEndTime, $unRoomName, $unStatus, $unDigicode);
+				return $uneReservation;
+			}
+	}
 
 	// fournit le niveau d'un utilisateur identifié par $nomUser et $mdpUser
 	// renvoie "utilisateur" ou "administrateur" si authentification correcte, "inconnu" sinon
@@ -328,20 +388,7 @@ class DAO
 		else
 			return "1";
 	}
-	
-	// enregistre l'annulation de réservation 
-	// modifié par Valentin Bachelier le 27/09/2016
-	public function annulerReservation($idReservation)
-	{	// préparation de la requete
-		$txt_req = "delete from mrbs_entry where id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}
-	
+
 	// Supprimer un utilisateur
 	//modifié par Valentin Bachelier le 27/09/2016
 	// public function supprimerUtilisateur($idReservation)
