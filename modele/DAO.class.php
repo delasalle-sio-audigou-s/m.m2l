@@ -129,7 +129,6 @@ class DAO
 		$req->bindValue("idReservation",$idReservation, PDO::PARAM_INT);
 		// exécution de la requete
 		$req->execute();
-		return $ok;
 	}
 
 	
