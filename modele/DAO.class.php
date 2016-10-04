@@ -207,12 +207,12 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-/*
+
 	// envoyer d'un mot de passe
 	// crée par Sophie le 04/10/2016
-	public function envoyerMdp($unMDP)
+	public function envoyerMdp($nom, $nouveauMdp)
 	{	// préparation de la requete
-		$txt_req = "SELECT password FROM mrbs_users";
+		$txt_req = "SELECT name, password FROM mrbs_users";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("level", utf8_decode($unUtilisateur->getLevel()), PDO::PARAM_STR);
@@ -223,7 +223,7 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-	*/
+	
 
 	// fournit true si l'utilisateur ($nomUser) existe, false sinon
 	// modifié par Jim le 5/5/2015
