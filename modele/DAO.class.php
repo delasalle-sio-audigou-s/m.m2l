@@ -109,6 +109,20 @@ class DAO
 		return $ok;
 	}
 	
+	// confirmerReservation: enregistre la confirmation de réservation dans la bdd
+	public function confirmerReservation($uneReservation)
+	{
+		//préparation de la requete de recherche du statut de la réservation
+		$txt_req = "Insert into mrbs_entry (Status) values ('0') where id = :identifiant";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("identifiant", utf8_decode($uneReservation->getId()), PDO::PARAM_STR);
+		// exécution de la requete
+		$req->execute();
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+	}
+	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
 	// cette fonction peut dépanner en cas d'absence des triggers chargés de créer les digicodes
