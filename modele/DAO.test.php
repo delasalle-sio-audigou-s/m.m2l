@@ -24,6 +24,7 @@ $dao = new DAO();
 // test de la méthode annulerReservation --------------------------------------------------------
 // pour ce test, utiliser une réservation existante
 // modifié par Jim le 28/9/2015
+
 echo "<h3>Test de annulerReservation : </h3>";
 $laReservation = $dao->getReservation("1");
 if ($laReservation) {
