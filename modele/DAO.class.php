@@ -237,19 +237,21 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-
+/*
 	// envoyer d'un mot de passe
 	// crée par Sophie le 04/10/2016
 	public function envoyerMdp($nom, $nouveauMdp)
 	{	//préparation de la requete de recherche du statut de la réservation
-		$txt_req = "UPDATE mrbs_user SET password='.$nouveauMdp.' WHERE name = :name";
+		$txt_req = "UPDATE mrbs_user SET password= :nouveauMdp WHERE name = :nom";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("name",$nom, PDO::PARAM_INT);
+		$req->bindValue("nom",$nom, PDO::PARAM_STR);
+		$req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
 		// exécution de la requete
-		$req->execute();
+		$ok = $req->execute();
+		return $ok;
 	}
-	
+*/	
 
 	// fournit true si l'utilisateur ($nomUser) existe, false sinon
 	// modifié par Jim le 5/5/2015
