@@ -510,6 +510,44 @@ class DAO
 		else
 			return "1";
 	}
+	
+	// fournit la liste des salles disponibles à la réservation
+	// le résultat est fourni sous forme d'une collection d'objets Salle
+	// modifié par Bachelier Valentin
+	function getLesSalles()
+	{	// préparation de la requete de recherche
+	$txt_req = "Select mrbs_room.id, mrbs_room.room_name, mrbs_room.capacity, mrbs_area.area_name, mrbs_area.area_admin_email";
+	$txt_req = $txt_req . " from mrbs_room, mrbs_area";
+	$txt_req = $txt_req . " where mrbs_room.area_id = mrbs_area.id";
+	$txt_req = $txt_req . " order by mrbs_area.area_name, mrbs_room.room_name";
+	
+	$req = $this->cnx->prepare($txt_req);
+	// extraction des données
+	$req->execute();
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	
+	// construction d'une collection d'objets Salle
+	$lesSalles = array();
+	// tant qu'une ligne est trouvée :
+	while ($uneLigne)
+	{	// création d'un objet Salle
+	$unId = utf8_encode($uneLigne->id);
+	$unRoomName = utf8_encode($uneLigne->room_name);
+	$unCapacity = utf8_encode($uneLigne->capacity);
+	$unAreaName = utf8_encode($uneLigne->area_name);
+	$unAeraAdminEmail = utf8_encode($uneLigne->area_admin_email);
+	
+	$uneSalle = new Salle($unId, $unRoomName, $unCapacity, $unAreaName, $unAeraAdminEmail);
+	// ajout de la réservation à la collection
+	$lesSalles[] = $uneSalle;
+	// extrait la ligne suivante
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	// fourniture de la collection
+	return $lesSalles;
+	}
 
 	// Supprimer un utilisateur
 	//modifié par Valentin Bachelier le 27/09/2016
