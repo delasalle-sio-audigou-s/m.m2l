@@ -152,6 +152,24 @@ class DAO
 		return $ok;
 	}
 
+	// existeReservation: fournit true si la réservation ($idReservation) existe, false sinon
+	//modifié par Florentin Gremy le 11/10/2016
+	public function existeReservation($idReservation)
+	{
+		$txt_req = "Select id from mrbs_entry where id = :idReservation";
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
+		$req->execute();
+		$nbReponses = $req->fetchColumn(0);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// fourniture de la réponse
+		if ($nbReponses == 0)
+			return false;
+			else
+				return true;
+	}
 	
 
 	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
@@ -329,7 +347,8 @@ class DAO
 		// exécution de la requete
 		$ok = $req->execute();
 		return $ok;
-	}
+	}	
+	
 
 	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
 	// modifié par Jim le 5/5/2015
