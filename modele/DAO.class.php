@@ -79,22 +79,21 @@ class DAO
 	// crée par Sophie le 27/09/2016
 	public function aPasseDesReservations($nomUser)
 	{	// préparation de la requête pour rechercher si l'utilisateur passé des réservations
-	$txt_req = "Select count(*) from mrbs_entry where create_by = :nomUser";
-	$req = $this->cnx->prepare($txt_req);
-	// liaison de la requête et de ses paramètres
-	$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
-	// exécution de la requete
-	$req->execute();
-	$nbReponses = $req->fetchColumn(0);
-	// libère les ressources du jeu de données
-	$req->closeCursor();
-	
-	// fourniture de la réponse
-	if ($nbReponses == 0)
-		return false;
+		$txt_req = "Select count(*) from mrbs_entry where create_by = :nomUser";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
+		// exécution de la requete
+		$req->execute();
+		$nbReponses = $req->fetchColumn(0);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// fourniture de la réponse
+		if ($nbReponses == 0)
+			return false;
 		else
 			return true;
-
 	}
 
 	
@@ -259,8 +258,7 @@ class DAO
 	// getUtilisateur: fournit un objet Utilisateur à partir de son nom $nomUser
 	//modifié par sophie le 11/10/2016
 	public function getUtilisateur($nomUser)
-	{
-		
+	{		
 		$txt_req = "SELECT * FROM mrbs_users WHERE name = :nomUser";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
@@ -289,31 +287,37 @@ class DAO
 	 // crée par Sophie le 11/10/2016
 	 public function modifierMdpUser($nom, $nouveauMdp)
 	 {	//préparation de la requete de recherche du statut de la réservation
-	 $txt_req = "UPDATE mrbs_users SET password= :nouveauMdp WHERE name = :nom";
-	 $req = $this->cnx->prepare($txt_req);
-	 // liaison de la requête et de ses paramètres
-	 $req->bindValue("nom",$nom, PDO::PARAM_STR);
-	 $req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
-	 // exécution de la requete
-	 $ok = $req->execute();
-	 return $ok;
+		 $txt_req = "UPDATE mrbs_users SET password= :nouveauMdp WHERE name = :nom";
+		 $req = $this->cnx->prepare($txt_req);
+		 // liaison de la requête et de ses paramètres
+		 $req->bindValue("nom",$nom, PDO::PARAM_STR);
+		 $req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
+		 // exécution de la requete
+		 $ok = $req->execute();
+		 return $ok;
 	 }
 	
-/*
-	// envoyer d'un mot de passe
+
+	// envoie d'un mot de passe
 	// crée par Sophie le 04/10/2016
 	public function envoyerMdp($nom, $nouveauMdp)
-	{	//préparation de la requete de recherche du statut de la réservation
-		$txt_req = "UPDATE mrbs_user SET password= :nouveauMdp WHERE name = :nom";
+	{	// recherche de l'utilisateur
+		$unUtilisateur = $this->getUtilisateur($nom);
+		//$adrMail = $unUtilisateur->getEmail();
+		
+		$txt_req = "select email from mrbs_users where name = :nom";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("nom",$nom, PDO::PARAM_STR);
-		$req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
-		// exécution de la requete
-		$ok = $req->execute();
+		$adrMail = $req->execute();
+		
+		// envoi d'un mail
+		$sujet = "Changement du mot de passe maison des ligues";
+		$message = "Suite à votre demande, votre mot de passe a bien été modifié :" . "\r" . $nouveauMdp;
+		$ok = Outils::envoyerMail($adrMail, $sujet, $message, "delasalle.sio.eleves@gmail.com");
 		return $ok;
 	}
-*/	
+	
 
 	// fournit true si l'utilisateur ($nomUser) existe, false sinon
 	// modifié par Jim le 5/5/2015
