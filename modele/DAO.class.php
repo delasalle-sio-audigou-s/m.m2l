@@ -237,6 +237,50 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
+	
+	// getUtilisateur: fournit un objet Utilisateur à partir de son nom $nomUser
+	//modifié par sophie le 11/10/2016
+	public function getUtilisateur($nomUser)
+	{
+		
+		$txt_req = "SELECT * FROM mrbs_users WHERE name = :nomUser";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		if ( ! $uneLigne)
+			return null;
+			else
+			{	// création d'un objet Reservation
+				$unId = utf8_encode($uneLigne->id);
+				$unLevel = utf8_encode($uneLigne->level);
+				$unName = utf8_encode($uneLigne->name);
+				$unPassword = utf8_encode($uneLigne->password);
+				$unEmail = utf8_encode($uneLigne->email);
+				
+				$unUtilisateur = new Utilisateur($unId,$unLevel,$unName,$unPassword,$unEmail);
+				return $unUtilisateur;
+			}
+	}
+	
+	 // modifier d'un mot de passe
+	 // crée par Sophie le 11/10/2016
+	 public function modifierMdpUser($nom, $nouveauMdp)
+	 {	//préparation de la requete de recherche du statut de la réservation
+	 $txt_req = "UPDATE mrbs_users SET password= :nouveauMdp WHERE name = :nom";
+	 $req = $this->cnx->prepare($txt_req);
+	 // liaison de la requête et de ses paramètres
+	 $req->bindValue("nom",$nom, PDO::PARAM_STR);
+	 $req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
+	 // exécution de la requete
+	 $ok = $req->execute();
+	 return $ok;
+	 }
+	
 /*
 	// envoyer d'un mot de passe
 	// crée par Sophie le 04/10/2016

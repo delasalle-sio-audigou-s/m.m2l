@@ -110,8 +110,8 @@ else
 // test de la méthode estLeCreateur ---------------------------------------------------------------
 // modifié par Jim le 25/9/2015
 echo "<h3>Test de estLeCreateur : </h3>";
-if ($dao->estLeCreateur("admin", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
-echo "<p>'admin' a créé la réservation 11 : <b>" . $estLeCreateur . "</b><br>";
+if ($dao->estLeCreateur("admin", "2")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
+echo "<p>'admin' a créé la réservation 2 : <b>" . $estLeCreateur . "</b><br>";
 if ($dao->estLeCreateur("zenelsy", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
 echo "'zenelsy' a créé la réservation 11 : <b>" . $estLeCreateur . "</b></p>";
 
@@ -210,7 +210,7 @@ else
 	echo "<p>La réservation 12 n'existe pas !</p>";	
 
 
-/*
+
 // test de la méthode getUtilisateur --------------------------------------------------------------
 // modifié par Jim le 30/9/2015
 echo "<h3>Test de getUtilisateur : </h3>";
@@ -224,10 +224,10 @@ if ($unUtilisateur)
 	echo "<p>L'utilisateur admon existe : <br>" . $unUtilisateur->toString() . "</p>";
 else
 	echo "<p>L'utilisateur admon n'existe pas !</p>";
-*/
 
 
-/*
+
+
 // test de la méthode modifierMdpUser -------------------------------------------------------------
 // modifié par Jim le 28/9/2015
 echo "<h3>Test de modifierMdpUser : </h3>";
@@ -246,7 +246,7 @@ if ($unUtilisateur) {
 }
 else
 	echo "<p>L'utilisateur admin n'existe pas !</p>";
-*/
+
 
 
 
