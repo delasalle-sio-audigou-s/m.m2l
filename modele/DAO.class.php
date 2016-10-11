@@ -285,7 +285,8 @@ class DAO
 		// exécution de la requete
 		$ok = $req->execute();
 		return $ok;
-	}
+	}	
+	
 
 	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
 	// modifié par Jim le 5/5/2015

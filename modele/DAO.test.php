@@ -253,7 +253,7 @@ else
 // test de la méthode supprimerUtilisateur --------------------------------------------------------
 // modifié par Jim le 28/9/2015
 echo "<h3>Test de supprimerUtilisateur : </h3>";
-$ok = $dao->supprimerUtilisateur("jim1");
+$ok = $dao->supprimerUtilisateur("Jim1");
 if ($ok)
  	echo "<p>Utilisateur bien supprimé !</p>";
 else
