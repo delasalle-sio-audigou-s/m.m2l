@@ -261,13 +261,13 @@ else
 */
 
 
-/*
+
 // test de la méthode testerDigicodeBatiment ------------------------------------------------------
 // modifié par Jim le 28/9/2015
 echo "<h3>Test de testerDigicodeBatiment : </h3>";
-$reponse = $dao->testerDigicodeBatiment("34214E");
-echo "<p>L'appel de testerDigicodeBatiment('34214E') donne : <b>" . $reponse . "</b><br>";
-*/
+$reponse = $dao->testerDigicodeBatiment("446452");
+echo "<p>L'appel de testerDigicodeBatiment('446452') donne : <b>" . $reponse . "</b><br>";
+
 
 
 /*
