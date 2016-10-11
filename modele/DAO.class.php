@@ -510,6 +510,28 @@ class DAO
 		else
 			return "1";
 	}
+	
+	// testerDigicodeBatiment: teste si le digicode saisi ($digicodeSaisi) correspond bien à une réservation de salle quelconque
+	//Modifié par Florentin Gremy le 11/10/2016
+	public function testerDigicodeBatiment($digicodeSaisi)
+	{
+		$txt_req = "Select count(*) from mrbs_entry_digicode where digicode = :digicodeSaisi";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("digicodeSaisi", $digicodeSaisi, PDO::PARAM_STR);
+		
+		// exécution de la requete
+		$req->execute();
+		$nbReponses = $req->fetchColumn(0);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// fourniture de la réponse
+		if ($nbReponses == 0)
+			return "0";
+			else
+				return "1";
+	}
 
 	// Supprimer un utilisateur
 	//modifié par Valentin Bachelier le 27/09/2016
