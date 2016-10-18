@@ -95,10 +95,6 @@ class DAO
 		else
 			return true;
 	}
-
-	
-
-
 	
 	// enregistre l'annulation de réservation
 	// modifié par Valentin Bachelier le 27/09/2016
@@ -298,23 +294,23 @@ class DAO
 	 }
 	
 
-	// envoie d'un mot de passe
-	// crée par Sophie le 04/10/2016
-	public function envoyerMdp($nom, $nouveauMdp)
-	{	// recherche de l'utilisateur
-		$unUtilisateur = $this->getUtilisateur($nom);
-		//$adrMail = $unUtilisateur->getEmail();
+
+	// envoie un mail à l'utilisateur avec son nouveau mot de passe
+	// retourne true si envoi correct, false en cas de problème d'envoi
+	 // crée par Sophie le 04/10/2016
+	public function envoyerMdp($nomUser, $nouveauMdp)
+	{	global $ADR_MAIL_EMETTEUR;
+		// si l'adresse n'est pas dans la table mrbs_users :
+		if ( ! $this->existeUtilisateur($nomUser) ) return false;
+
+		// recherche de l'adresse mail
+		$adrMail = $this->getUtilisateur($nomUser)->getEmail();
 		
-		$txt_req = "select email from mrbs_users where name = :nom";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nom",$nom, PDO::PARAM_STR);
-		$adrMail = $req->execute();
-		
-		// envoi d'un mail
-		$sujet = "Changement du mot de passe maison des ligues";
-		$message = "Suite à votre demande, votre mot de passe a bien été modifié :" . "\r" . $nouveauMdp;
-		$ok = Outils::envoyerMail($adrMail, $sujet, $message, "delasalle.sio.eleves@gmail.com");
+		// envoie un mail à l'utilisateur avec son nouveau mot de passe 
+		$sujet = "Modification de votre mot de passe d'accès au service Réservations M2L";
+		$message = "Votre mot de passe d'accès au service Réservations M2L a été modifié.\n\n";
+		$message .= "Votre nouveau mot de passe est : " . $nouveauMdp;
+		$ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
 		return $ok;
 	}
 	
@@ -580,7 +576,6 @@ class DAO
 		return $lesSalles;
 	}
 
-	
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
