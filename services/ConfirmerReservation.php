@@ -61,8 +61,9 @@ else
 	}
 	// ferme la connexion à MySQL
 	unset($dao);
-	$msg= "La réservation a bien été confirmée"
+	$msg= "La réservation a bien été confirmée";
 }
+
 // création du flux XML en sortie
 creerFluxXML ($msg, $lesReservations);
 
