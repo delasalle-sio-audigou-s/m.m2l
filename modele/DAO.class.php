@@ -96,10 +96,6 @@ class DAO
 			return true;
 
 	}
-
-	
-
-
 	
 	// enregistre l'annulation de réservation
 	// modifié par Valentin Bachelier le 27/09/2016
@@ -299,21 +295,27 @@ class DAO
 	 return $ok;
 	 }
 	
-/*
-	// envoyer d'un mot de passe
-	// crée par Sophie le 04/10/2016
-	public function envoyerMdp($nom, $nouveauMdp)
-	{	//préparation de la requete de recherche du statut de la réservation
-		$txt_req = "UPDATE mrbs_user SET password= :nouveauMdp WHERE name = :nom";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nom",$nom, PDO::PARAM_STR);
-		$req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
-		// exécution de la requete
-		$ok = $req->execute();
+
+
+	// envoie un mail à l'utilisateur avec son nouveau mot de passe
+	// retourne true si envoi correct, false en cas de problème d'envoi
+	 // crée par Sophie le 04/10/2016
+	public function envoyerMdp($nomUser, $nouveauMdp)
+	{	global $ADR_MAIL_EMETTEUR;
+		// si l'adresse n'est pas dans la table mrbs_users :
+		if ( ! $this->existeUtilisateur($nomUser) ) return false;
+
+		// recherche de l'adresse mail
+		$adrMail = $this->getUtilisateur($nomUser)->getEmail();
+		
+		// envoie un mail à l'utilisateur avec son nouveau mot de passe 
+		$sujet = "Modification de votre mot de passe d'accès au service Réservations M2L";
+		$message = "Votre mot de passe d'accès au service Réservations M2L a été modifié.\n\n";
+		$message .= "Votre nouveau mot de passe est : " . $nouveauMdp;
+		$ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
 		return $ok;
 	}
-*/	
+	
 
 	// fournit true si l'utilisateur ($nomUser) existe, false sinon
 	// modifié par Jim le 5/5/2015
@@ -576,7 +578,6 @@ class DAO
 		return $lesSalles;
 	}
 
-	
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
