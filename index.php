@@ -14,7 +14,7 @@
 //    index.php?action=ConsulterSalles        : pour afficher la liste des salles disponibles en réservation
 //    index.php?action=ConsulterReservations  : pour afficher la liste des réservations de l'utilisateur
 //    index.php?action=ConfirmerReservation   : pour afficher la page de confirmation d'une réservation
-//    index.php?action=AnnulerReservation     : pour afficher la page de suppression d'une réservation
+//	  index.php?action=AnnulerReservation     : pour afficher la page de suppression d'une réservation
 //    index.php?action=ChangerDeMdp           : pour afficher la page de changement de mot de passe
 
 // il faut être administrateur pour les 2 actions suivantes :
@@ -64,33 +64,33 @@ switch($action){
 	}
 	case 'DemanderMdp': {
 		//include_once ('controleurs/CtrlDemanderMdp.php'); break;
-		include_once ('controleurs/CtrlConnecter.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlDemanderMdp.php'); break;	// ligne provisoire
 	}
 	case 'ConsulterSalles': {
 		//include_once ('controleurs/CtrlConsulterSalles.php'); break;
-		include_once ('controleurs/CtrlMenu.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlConsulterSalles.php'); break;	// ligne provisoire
 	}
 	case 'ConsulterReservations': {
 		include_once ('controleurs/CtrlConsulterReservations.php'); break;
 	}
 	case 'ConfirmerReservation': {
 		//include_once ('controleurs/CtrlConfirmerReservation.php'); break;
-		include_once ('controleurs/CtrlMenu.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlConfirmerReservation.php'); break;	// ligne provisoire
 	}
 	case 'AnnulerReservation': {
 		//include_once ('controleurs/CtrlAnnulerReservation.php'); break;
-		include_once ('controleurs/CtrlMenu.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlAnnulerReservation.php'); break;	// ligne provisoire
 	}
 	case 'ChangerDeMdp': {
 		//include_once ('controleurs/CtrlChangerDeMdp.php'); break;
-		include_once ('controleurs/CtrlMenu.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlChangerDeMdp.php'); break;	// ligne provisoire
 	}
 	case 'CreerUtilisateur': {
 		include_once ('controleurs/CtrlCreerUtilisateur.php'); break;
 	}
 	case 'SupprimerUtilisateur': {
 		//include_once ('controleurs/CtrlSupprimerUtilisateur.php'); break;
-		include_once ('controleurs/CtrlMenu.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlSupprimerUtilisateur.php'); break;	// ligne provisoire
 	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
