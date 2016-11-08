@@ -83,7 +83,7 @@ switch($action){
 	}
 	case 'ChangerDeMdp': {
 		//include_once ('controleurs/CtrlChangerDeMdp.php'); break;
-		include_once ('controleurs/CtrlDemanderMdp.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlChangerDeMdp.php'); break;	// ligne provisoire
 	}
 	case 'CreerUtilisateur': {
 		include_once ('controleurs/CtrlCreerUtilisateur.php'); break;

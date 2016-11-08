@@ -233,7 +233,7 @@ class DAO
 		 $req1->closeCursor();
 		 return;
 	 }
-	 */
+	*/ 
 
 	// enregistre l'utilisateur dans la bdd
 	// modifié par Jim le 26/5/2016
@@ -281,17 +281,17 @@ class DAO
 	
 	 // modifier d'un mot de passe
 	 // crée par Sophie le 11/10/2016
-	 public function modifierMdpUser($nom, $nouveauMdp)
-	 {	//préparation de la requete de recherche du statut de la réservation
-		 $txt_req = "UPDATE mrbs_users SET password= :nouveauMdp WHERE name = :nom";
-		 $req = $this->cnx->prepare($txt_req);
-		 // liaison de la requête et de ses paramètres
-		 $req->bindValue("nom",$nom, PDO::PARAM_STR);
-		 $req->bindValue("nouveauMdp",md5($nouveauMdp), PDO::PARAM_STR);
-		 // exécution de la requete
-		 $ok = $req->execute();
-		 return $ok;
-	 }
+	public function modifierMdpUser($nomUser, $nouveauMdp)
+	{	// préparation de la requete
+		$txt_req = "update mrbs_users set password = :nouveauMdp where name = :nomUser";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nouveauMdp", md5($nouveauMdp), PDO::PARAM_STR);
+		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);		
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 	
 
 
