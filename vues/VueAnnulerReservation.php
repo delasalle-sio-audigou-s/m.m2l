@@ -8,8 +8,7 @@
 ?>
 <!doctype html>
 <html>
-	<head>
-	
+	<head>	
 		<?php include_once ('vues/head.php'); ?>
 				
 		<script>

@@ -2,8 +2,7 @@
 // Projet Réservations M2L - version web mobile
 // fichier : controleurs/CtrlCreerUtilisateur.php
 // Rôle : traiter la demande de création d'un nouvel utilisateur
-// Création : 21/10/2015 par florentin gremy
-
+// Mis à jour le 15/11/2016 par florentin gremy
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
@@ -58,7 +57,6 @@ else
 					include_once ('vues/VueAnnulerReservation.php');
 				}
 			}
-		}
-		
+		}		
 	}
 }
