@@ -9,9 +9,9 @@ include_once ('modele/DAO.class.php');
 $dao = new DAO();
 	
 if ( ! isset ($_POST ["btnAnnulerReservation"]) == true) {
-// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-$idReservation = '';
-include_once ('vues/VueAnnulerReservation.php');
+	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
+	$idReservation = '';
+	include_once ('vues/VueAnnulerReservation.php');
 }
 else
 {

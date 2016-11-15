@@ -1,32 +1,62 @@
 <?php
 // Projet Réservations M2L - version web mobile
-// fichier : controleurs/CtrlConfirmerReservation.php
-// Rôle : modification pour confirmer une reservation
-// écrit par 15/11/2016 par Sophie
+// fichier : controleurs/CtrlCreerUtilisateur.php
+// Rôle : traiter la demande de création d'un nouvel utilisateur
+// Mis à jour le 15/11/2016 par florentin gremy
 
-// on vérifie si le demandeur de cette action est bien authentifié
-if ( $_SESSION['niveauUtilisateur'] != 'utilisateur' && $_SESSION['niveauUtilisateur'] != 'administrateur') {
-	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
-	// dans ce cas, on provoque une redirection vers la page de connexion
-	header ("Location: index.php?action=Deconnecter");
+// connexion du serveur web à la base MySQL
+include_once ('modele/DAO.class.php');
+$dao = new DAO();
+	
+if ( ! isset ($_POST ["btnConfirmerReservation"]) == true) {
+	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
+	$idReservation = '';
+	include_once ('vues/VueConfirmerReservation.php');
 }
-else {
-	// connexion du serveur web à la base MySQL
-	include_once ('modele/DAO.class.php');
-	$dao = new DAO();
-
-	// récupération des salles libres depuis la classe DAO
-	$lesSalles = $dao->getStatus();
-	// mémorisation du nombre de salles libres
-	$nbReponses = sizeof($lesStatus);
-	// préparation d'un message précédent la liste
-	if ($nbReponses == 0) {
-		$message = "Il n'y a aucune reservation!";
+else
+{
+	$idReservation = $_POST ["txtReservation"];
+	$nomUtilisateur = $_SESSION['nom'];
+	
+	
+	// On teste si la réservation existe
+	if (!$dao->existeReservation($idReservation)){
+		$message = "Numéro de réservation inexistant !";
+		$typeMessage = 'avertissement';
+		$themeFooter = $themeNormal;
+		include_once ('vues/VueConfirmerReservation.php');	
 	}
 	else {
-		$message = $nbReponses . " salle(s) disponibles en réservation :";
+		
+		$laReservation = $dao->getReservation($idReservation);
+		$laDateReservation = $laReservation->getEnd_time();		
+		
+		if ($laDateReservation <= time()){
+			$message = "Cette réservation est déjà passée !";
+			$typeMessage = 'avertissement';
+			$themeFooter = $themeNormal;
+			include_once ('vues/VueConfirmerReservation.php');
+		}
+		else{
+			// On teste si l'utilisateur est le créateur de la réservation
+			if ( !$dao->estLeCreateur($nomUtilisateur,$idReservation)){
+				$message = "Vous n'êtes pas l'auteur de cette réservation !";
+				$typeMessage = 'avertissement';
+				$themeFooter = $themeNormal;
+				include_once ('vues/VueConfirmerReservation.php');
+			}
+		
+			else {
+				// Si la réservation existe et a été faite par l'utilisateur elle est confirmer
+				$ok = $dao->confirmerReservation($idReservation);
+				
+				if ($ok) {
+					$message = 'Réservation Confirmer.';
+					$typeMessage = 'information';
+					$themeFooter = $themeNormal;
+					include_once ('vues/VueAnnulerReservation.php');
+				}
+			}
+		}		
 	}
-	// affichage de la vue
-	include_once ('vues/VueConfirmerReservation.php');
-	unset($dao);		// fermeture de la connexion à MySQL
 }
