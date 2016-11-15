@@ -19,7 +19,7 @@
 				<a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 0px; margin-bottom: 0px;">Consulter mes réservations</h4>
+				<h4 style="text-align: center; margin-top: 0px; margin-bottom: 0px;">Confirmer une réservation</h4>
 				<p style="text-align: center;"><?php echo $message; ?></p>
 				<ul data-role="listview" style="margin-top: 5px;">
 				<?php
