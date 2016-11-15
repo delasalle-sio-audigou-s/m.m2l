@@ -72,7 +72,7 @@ switch($action){
 		include_once ('controleurs/CtrlConsulterReservations.php'); break;
 	}
 	case 'ConfirmerReservation': {
-		include_once ('controleurs/CtrlConfirmerReservation.php'); break;
+		include_once ('controleurs/CtrlConfirmerReservations.php'); break;
 	}
 	case 'AnnulerReservation': {
 		include_once ('controleurs/CtrlAnnulerReservation.php'); break;

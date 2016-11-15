@@ -1,57 +1,64 @@
 <?php
 	// Projet Réservations M2L - version web mobile
-	// fichier : vues/VueConsulterReservations.php
-	// Rôle : visualiser la liste des réservations à venir d'un utilisateur
-	// cette vue est appelée par le contôleur controleurs/CtrlConsulterReservations.php
-	// Création : 12/10/2015 par JM CARTRON
-	// Mise à jour : 31/5/2016 par JM CARTRON
+	// fichier : vues/VueConfirmerReservation.php
+	// Rôle : visualiser la demande de changement de mdp 
+	// cette vue est appelée par le contôleur controleurs/CtrlChangerDeMdp.php
+	// Création : 04/10/2016 par Sophie
 ?>
 <!doctype html>
 <html>
 	<head>
 		<?php include_once ('vues/head.php'); ?>
+		
+		<script>
+		// version jQuery activée
+		
+		// associe une fonction à l'événement pageinit
+		$(document).bind('pageinit', function() {
+		
+			
+			<?php if ($typeMessage != '') { ?>
+				// affiche la boîte de dialogue 'affichage_message'
+				$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+			<?php } ?>
+		} );
+		</script>
 	</head>
-	 
 	<body>
-		<div data-role="page">
+		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>M2L-GRR</h4>
 				<a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
+			
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 0px; margin-bottom: 0px;">Confirmer une réservation</h4>
-				<p style="text-align: center;"><?php echo $message; ?></p>
-				<ul data-role="listview" style="margin-top: 5px;">
-				<?php
-				// Avec jQuery Mobile, les réservations sont affichées à l'aide d'une liste <ul>
-				// chaque réservation est affichée à l'aide d'un élément de liste <li>
-				// chaque élément de liste <li> peut contenir des titres et des paragraphes
+				<form action="index.php?action=ConfirmerReservation" method="post" data-ajax="false">
+					<div data-role="fieldcontain">
+						<label for="txtConfirmerReservation">Numéro de la réservation : </label>
+						<input type="text" name="numReservation" id="numReservation" placeholder="Entrez le numero de reservation" required value="<?php echo $idReservation; ?>">
+					</div>
+				
+					<div data-role="fieldcontain">
+						<input type="submit" name="btnConfirmerReservation" id="btnConfirmerReservation" value="Valider la reservation" data-mini="true">
+					</div>
+				</form>
 
-				foreach ($lesReservations as $uneReservation)
-				{ ?>
-					<li><a href="#">
-					<h5>Réserv. n° <?php echo $uneReservation->getId(); ?></h5>
-					<p>Passée le <?php echo Outils::convertirEnDateFR(substr($uneReservation->getTimestamp(), 0, 10)); ?></p>
-					<p>Début : <?php echo date('d/m/Y H:i:s', $uneReservation->getStart_time()); ?></p>
-					<p>Fin : <?php echo date('d/m/Y H:i:s', $uneReservation->getEnd_time()); ?></p>
-					<p>Salle : <?php echo $uneReservation->getRoom_name(); ?></p>
-					<p>Etat : <?php if ($uneReservation->getStatus() == 0) 
-										echo 'confirmée';
-					 				else 
-					 					echo 'provisoire';?></p>
-					<?php if ($uneReservation->getStatus() == 0) 
-							// la classe "ui-li-aside" de JQuery Mobile permet de positionner un élément à droite
-							echo '<h5 class="ui-li-aside">Digicode ' . $uneReservation->getDigicode() . '</h5>';?>
-					</a></li>
-				<?php
+				<?php if($debug == true) {
+					// en mise au point, on peut afficher certaines variables dans la page
+					echo "<p>name = " . $name . "</p>";
+					echo "<p>adrMail = " . $adrMail . "</p>";
+					echo "<p>level = " . $level . "</p>";
 				} ?>
-				</ul>
-
+				
 			</div>
-			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal;?>">
+			
+			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Suivi des réservations de salles<br>Maison des ligues de Lorraine (M2L)</h4>
 			</div>
 		</div>
+		
+		<?php include_once ('vues/dialog_message.php'); ?>
 		
 	</body>
 </html>
