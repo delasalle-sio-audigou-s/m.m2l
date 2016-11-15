@@ -99,14 +99,14 @@ echo ('<br>');
 
 // test de la méthode envoyerMail------------------------------------------------------------------
 // ATTENTION : remplacez l'adr destinataire par votre adresse pour pouvoir vérifier la réception du mail
-$adresseDestinataire = "delasalle.sio.cartron.j@gmail.com";
+$adresseDestinataire = "delasalle.sio.audigou.sophie@gmail.com";
 $sujet = "sujet du test";
 $message = "corps du message";
 $adresseEmetteur = "delasalle.sio.eleve@gmail.com";
 $ok = false;
 //$ok = Outils::envoyerMail ($adresseDestinataire, $sujet, $message, $adresseEmetteur);
 echo ('<b>Test de la méthode envoyerMail : </b><br>');
-if ($ok == true) echo ('Un mail vient d\'être envoyé !<br>');
+if ($ok = true) echo ('Un mail vient d\'être envoyé !<br>');
 else echo ('L\'envoi du mail a rencontré un problème !<br>');
 echo ('<br>');
 

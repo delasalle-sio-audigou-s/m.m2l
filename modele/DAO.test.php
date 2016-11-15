@@ -25,7 +25,7 @@ $dao = new DAO();
 // pour ce test, utiliser une réservation existante
 // modifié par Jim le 28/9/2015
 
-/*echo "<h3>Test de annulerReservation : </h3>";
+echo "<h3>Test de annulerReservation : </h3>";
 $laReservation = $dao->getReservation("1");
 if ($laReservation) {
 	$dao->annulerReservation("1");
@@ -36,7 +36,7 @@ if ($laReservation) {
 		echo "La réservation 1 a bien été supprimée !</p>";
 }
 else
-	echo "<p>La réservation 1 n'existe pas !</p>";*/
+	echo "<p>La réservation 1 n'existe pas !</p>";
 
 
 // test de la méthode aPasseDesReservations -------------------------------------------------------
@@ -98,12 +98,13 @@ else
 // test de la méthode envoyerMdp ------------------------------------------------------------------
 //modifié par Jim le 28/9/2015
  echo "<h3>Test de envoyerMdp : </h3>";
- $dao->modifierMdpUser("jim", "passe");
- $ok = $dao->envoyerMdp("jim", "passe");
+ $dao->modifierMdpUser("admin", "admin");
+ $ok = $dao->envoyerMdp("admin", "admin");
  if ($ok)
  	echo "<p>Mail bien envoyé !</p>";
  else
  	echo "<p>Echec lors de l'envoi du mail !</p>";
+
 
 
 
