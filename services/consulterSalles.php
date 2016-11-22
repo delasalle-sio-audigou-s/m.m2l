@@ -39,6 +39,7 @@ else
 		// récupération des réservations à venir créées par l'utilisateur
 		$lesSalles = $dao->getLesSalles();
 		$nbReponses = sizeof($lesSalles);
+		$msg = $nbReponses . " salles disponibles en réservation.";
 	}
 	// ferme la connexion à MySQL
 	unset($dao);
