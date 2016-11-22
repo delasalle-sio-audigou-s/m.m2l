@@ -2,16 +2,16 @@
 // Service web du projet Réservations M2L
 // Ecrit le 22/11/2016 par Sophie
 
-// Ce service web permet à un utilisateur de modifier le mdp d'un utilisateur
+// Ce service web permet à un utilisateur de demander le mdp d'un utilisateur
 // et fournit un flux XML contenant un compte-rendu d'exécution
 
 // Le service web doit recevoir 4 paramètres : nom, ancienMdp, nouveauMdp, confirmationMdp 
 // Les paramètres peuvent être passés par la méthode GET (pratique pour les tests, mais à éviter en exploitation) :
-//     http://<hébergeur>/ChangerDeMdp.php?nom=zenelsy&ancienMdp=passe&nouveauMdp=123&confirmationMdp=123
+//     http://<hébergeur>/DemanderMdp.php?nom=zenelsy
 
 
 // Les paramètres peuvent être passés par la méthode POST (à privilégier en exploitation pour la confidentialité des données) :
-//     http://<hébergeur>/ChangerDeMdp.php
+//     http://<hébergeur>/DemanderMdp.php.
 
 // inclusion de la classe Outils
 include_once ('../modele/Outils.class.php');
