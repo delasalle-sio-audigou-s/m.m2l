@@ -3,7 +3,7 @@
 // fichier : index.php
 // Rôle : analyser toutes les demandes (appels de page ou traitements de formulaires) et activer le contrôleur chargé de traiter l'action demandée
 // écrit par Jim le 5/11/2015
-// modifié par Jim le 1/9/2016
+// modifié par florentin le 15/11/2016
 
 // Ce fichier est appelé par tous les liens internes, et par la validation de tous les formulaires
 // il est appelé avec un paramètre action qui peut prendre les valeurs suivantes :
@@ -63,37 +63,30 @@ switch($action){
 		include_once ('controleurs/CtrlMenu.php'); break;
 	}
 	case 'DemanderMdp': {
-		//include_once ('controleurs/CtrlDemanderMdp.php'); break;
-		include_once ('controleurs/CtrlDemanderMdp.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlDemanderMdp.php'); break;	
 	}
 	case 'ConsulterSalles': {
-		//include_once ('controleurs/CtrlConsulterSalles.php'); break;
-		include_once ('controleurs/CtrlConsulterSalles.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlConsulterSalles.php'); break;
 	}
 	case 'ConsulterReservations': {
 		include_once ('controleurs/CtrlConsulterReservations.php'); break;
 	}
 	case 'ConfirmerReservation': {
-		//include_once ('controleurs/CtrlConfirmerReservation.php'); break;
-		include_once ('controleurs/CtrlConfirmerReservation.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlConfirmerReservations.php'); break;
 	}
 	case 'AnnulerReservation': {
-		//include_once ('controleurs/CtrlAnnulerReservation.php'); break;
-		include_once ('controleurs/CtrlAnnulerReservation.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlAnnulerReservation.php'); break;
 	}
 	case 'ChangerDeMdp': {
-		//include_once ('controleurs/CtrlChangerDeMdp.php'); break;
-		include_once ('controleurs/CtrlChangerDeMdp.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlChangerDeMdp.php'); break;
 	}
 	case 'CreerUtilisateur': {
 		include_once ('controleurs/CtrlCreerUtilisateur.php'); break;
 	}
 	case 'SupprimerUtilisateur': {
-		//include_once ('controleurs/CtrlSupprimerUtilisateur.php'); break;
-		include_once ('controleurs/CtrlSupprimerUtilisateur.php'); break;	// ligne provisoire
+		include_once ('controleurs/CtrlSupprimerUtilisateur.php'); break;
 	}
 	default : {
-		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;
 	}
 }
